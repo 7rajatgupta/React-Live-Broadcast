@@ -9,6 +9,11 @@ app.get("/", function(req, res) {
 //*Log when a user connects:
 io.on("connection", function(socket) {
   console.log("[+] A user connected !!");
+
+  //*Listen for emits:
+  socket.on("chat message", function(msg) {
+    console.log("message: " + msg);
+  });
 });
 
 server.listen(3001, function() {

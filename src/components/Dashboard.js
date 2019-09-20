@@ -13,7 +13,7 @@ import { CTX } from "./Store";
 const Dashboard = () => {
   const classes = useStyles(); // * For the styling and everything.
   //*Get the context :
-  const [chatRepo] = useContext(CTX);
+  const { chatRepo, sendChatAction } = useContext(CTX);
   //console.log(chatRepo);
   //* Extract the topics :
   const topics = Object.keys(chatRepo);
@@ -67,6 +67,10 @@ const Dashboard = () => {
           <Button
             variant="contained"
             color="primary"
+            onClick={() => {
+              sendChatAction(message);
+              setMessage("");
+            }}
             className={classes.button}
           >
             Post

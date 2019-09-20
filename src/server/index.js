@@ -12,7 +12,8 @@ io.on("connection", function(socket) {
 
   //*Listen for emits:
   socket.on("chat message", function(msg) {
-    console.log("message: " + msg);
+    console.log("message: " + JSON.stringify(msg));
+    io.emit("chat message", { msg });
   });
 });
 

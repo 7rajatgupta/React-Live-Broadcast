@@ -3,37 +3,42 @@ import { makeStyles } from "@material-ui/core/styles";
 export const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3, 2),
-    margin: "30px"
+    margin: " 2%"
   },
 
-  centerText: {
-    textAlign: "center"
+  heading: {
+    textAlign: "center",
+    color: "#124559"
+  },
+
+  subheading: {
+    textAlign: "center",
+    color: "#9EC1A3"
   },
 
   flex: {
     display: "flex",
-    alignItems: "center",
     padding: "5px"
   },
   topicsWindow: {
     width: "30%",
-    height: "500px",
+    height: "600px",
     borderRight: "0.5px solid grey"
   },
   chatWindow: {
     width: "70%",
-    height: "500px",
-    padding: "10px"
+    height: "600px"
   },
   chatBox: {
-    width: "85%",
+    width: "90%",
     padding: "10px"
   },
   button: {
-    width: "15%",
+    width: "10%",
     padding: "10px"
   },
   message: {
-    padding: "5px"
+    padding: "5px",
+    marginRight: "10px"
   }
 }));

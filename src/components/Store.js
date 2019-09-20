@@ -5,33 +5,19 @@ export const CTX = createContext(); //Init a context provider.
 
 //*Initial State of the messages in the discussion:
 const initialState = {
-  Football: [
-    { user: "Ronaldo", message: "I'm the best of all time" },
-    { user: "Messi", message: "Please help me to win Champions League" },
-    { user: "Neymar", message: "Se queda ?" },
-    { user: "Ramos", message: "Busy shooting my new documentary" },
-    { user: "Zidane", message: "I believe in this Real Madrid squad." },
-    { user: "Hazard", message: "Cristiano who ?" },
-    { user: "James", message: "It's my season at Real Madrid." }
-  ],
-  General: [
-    { user: "Ed", message: "Hey Check me out, I'm so general." },
-    { user: "Ed", message: "Hey Check me out, I'm so general." },
-    { user: "Ed", message: "Hey Check me out, I'm so general." },
-    { user: "Ed", message: "Hey Check me out, I'm so general." },
-    { user: "Ed", message: "Hey Check me out, I'm so general." },
-    { user: "Ed", message: "Hey Check me out, I'm so general." }
-  ],
-  Development: [
-    { user: "Anonymous", message: "We shall overcome everyone.." },
-    { user: "Anonymous", message: "We shall overcome everyone.." },
-    { user: "Anonymous", message: "We shall overcome everyone.." },
-    { user: "Anonymous", message: "We shall overcome everyone.." },
-    { user: "Anonymous", message: "We shall overcome everyone.." }
-  ]
+  Football: [{ user: "ChatBot", message: "Who's gonna win UCL this year?" }],
+  Team101: [{ user: "ChatBot", message: "Exclusive for Team 101 !" }],
+  Social: [{ user: "ChatBot", message: "Let's get social !!" }],
+  Travel: [{ user: "ChatBot", message: "I'm saving for Europe Trip :)" }],
+  Tech: [{ user: "ChatBot", message: "Yo, iPhone 11 Pro is slick, bruh !" }],
+  Science: [{ user: "ChatBot", message: "I'm not so good at it :D" }],
+  Coding: [{ user: "ChatBot", message: "Declare variables not war" }]
 };
 
-//*Reducer:
+//*Create a random user:
+const user = "User" + Math.floor(Math.random() * Math.floor(100));
+
+//*Reducer to post and update messages:
 const reducer = (state, action) => {
   const { user, message, topic } = action.payload;
   switch (action.type) {
@@ -45,24 +31,29 @@ const reducer = (state, action) => {
   }
 };
 
-//* Socket :
+//* Socket Object :
 let socket;
 
 //* Dispatch a Chat Action:
-
 const sendChatAction = value => {
   socket.emit("chat message", value);
 };
 
 const Store = props => {
-  if (!socket) {
-    socket = io(":3001");
-  }
-
   const [chatRepo, dispatch] = useReducer(reducer, initialState);
 
+  //*Init the socket object
+  if (!socket) {
+    socket = io(":3001");
+    socket.on("chat message", function(msg) {
+      //Add the message to the list
+      dispatch({ type: "POST_MESSAGE", payload: msg.msg });
+    });
+  }
+
+  //*Pass the elements to the application state :
   return (
-    <CTX.Provider value={{ chatRepo, sendChatAction }}>
+    <CTX.Provider value={{ chatRepo, sendChatAction, user }}>
       {props.children}
     </CTX.Provider>
   );

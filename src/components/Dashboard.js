@@ -12,24 +12,22 @@ import { CTX } from "./Store";
 
 const Dashboard = () => {
   const classes = useStyles(); // * For the styling and everything.
-  //*Get the context :
-  const { chatRepo, sendChatAction } = useContext(CTX);
-  //console.log(chatRepo);
+  //*Get the elemets from the context :
+  const { chatRepo, sendChatAction, user } = useContext(CTX);
   //* Extract the topics :
   const topics = Object.keys(chatRepo);
-  //console.log(topics);
   //*States:
   const [message, setMessage] = useState("");
   const [activeTopic, setActiveTopic] = useState(topics[0]);
 
   return (
-    <div>
+    <div className="App">
       <Paper className={classes.root}>
-        <Typography className={classes.centerText} variant="h5" component="h3">
-          Discussion Forum
+        <Typography className={classes.heading} variant="h4">
+          Socket Chat
         </Typography>
-        <Typography className={classes.centerText} component="p">
-          Topic : {activeTopic}
+        <Typography className={classes.subheading} component="p">
+          Welcome {user}
         </Typography>
         <div className={classes.flex}>
           <div className={classes.topicsWindow}>
@@ -68,7 +66,11 @@ const Dashboard = () => {
             variant="contained"
             color="primary"
             onClick={() => {
-              sendChatAction(message);
+              sendChatAction({
+                user: user,
+                message: message,
+                topic: activeTopic
+              });
               setMessage("");
             }}
             className={classes.button}

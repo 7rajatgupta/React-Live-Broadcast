@@ -21,13 +21,15 @@ export const useStyles = makeStyles(theme => ({
     padding: "5px"
   },
   topicsWindow: {
-    width: "30%",
+    width: "300px",
     height: "600px",
-    borderRight: "0.5px solid grey"
+    borderRight: "0.5px solid grey",
+    overflow: "auto"
   },
   chatWindow: {
-    width: "70%",
-    height: "600px"
+    width: "100%",
+    height: "600px",
+    overflow: "auto"
   },
   chatBox: {
     width: "90%",
